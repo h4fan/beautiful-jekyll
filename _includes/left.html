@@ -1,22 +1,20 @@
-
-  <div class="container-md ">
-    <div class="row">
-      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
-
-     
-      {% include social-networks-links.html %}
-     
-      <p class="copyright text-muted">
-      {% if site.author %}
+<div class="card" >
+  <img src="/assets/aq.png" class="card-img-top" alt="h4fan security">
+  <div class="card-body">
+    <h5 class="card-title">{{ site.title }}</h5>
+    <p class="card-text">{{ site.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="{{ '/feed.xml' | relative_url }}" title="RSS">RSS</a></li>
+    <li class="list-group-item"><a href="mailto:{{ network[1] }}" title="Email me">Email</a></li>
+    <li class="list-group-item"><a href="https://github.com/{{ network[1] }}" title="GitHub">GitHub</a></li>
+    <li class="list-group-item"><a rel="me" href="https://{{ network[1] }}" title="Mastodon">Mastodon</a></li>
+  </ul>
+ <div class="card-footer text-body-secondary">
+    {% if site.author %}
         {{ site.author }}
         &nbsp;&bull;&nbsp;
       {% endif %}
       {{ site.time | date: '%Y' }}
-
-
-      </p>
-     
-      </div>
-    </div>
   </div>
-
+</div>
