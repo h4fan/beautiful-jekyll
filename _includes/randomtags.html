@@ -10,8 +10,8 @@
     {% endif %}
   {% endfor %}
 {% else %}
-  {% assign tagssubset = site.tags | slice: 0, 3 %}
-  {% for tag in tagssubset %}
+  
+  {% for tag in site.tags | sample: 3 %}
       
         <h3>{{ tag[0] }}</h3>
         <ul>
