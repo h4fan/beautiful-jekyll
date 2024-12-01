@@ -9,4 +9,17 @@
       </ul>
     {% endif %}
   {% endfor %}
+{% else %}
+  {% assign tagssubset = site.tags | slice: 0, 3 %}
+  {% for tag in tagssubset %}
+      
+        <h3>{{ tag[0] }}</h3>
+        <ul>
+          {% for post in tag[1] %}
+            <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+          {% endfor %}
+        </ul>
+     
+    {% endfor %}
+  
 {% endif %}
