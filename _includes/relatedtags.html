@@ -2,7 +2,7 @@
 
 {% if site.tags and page.tags.size > 0 %}
   {% for tag in site.tags %}
-    {% if page.tags contain tag[0] %}
+    {% if page.tags contains tag[0] %}
       <h3>{{ tag[0] }}</h3>
       <ul>
         {% for post in tag[1] %}
