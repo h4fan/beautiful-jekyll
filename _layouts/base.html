@@ -29,9 +29,13 @@ common-ext-js:
   
   <div class="container ">
   <div class="row">
-    <div class="col-md-2 d-none d-md-block border-end position-sticky">{% include left.html %}</div>
+    <div class="col-md-2 d-none d-md-block border-end ">
+      <div class="position-sticky">{% include left.html %}</div>
+    </div>
     <div class="col-12 col-md-8 ">{{ content }}</div>
-    <div class="col-md-2 d-none d-md-block border-start position-sticky">{% include randomtags.html %}</div>
+    <div class="col-md-2 d-none d-md-block border-start ">
+      <div class="position-sticky">{% include randomtags.html %}</div>
+    </div>
   </div>
   </div>
   
