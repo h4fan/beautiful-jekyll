@@ -9,9 +9,9 @@
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item"><a href="{{ '/feed.xml' | relative_url }}" title="RSS">RSS</a></li>
-    <li class="list-group-item"><a href="mailto:{{ network[1] }}" title="Email me">Email</a></li>
-    <li class="list-group-item"><a href="https://github.com/{{ network[1] }}" title="GitHub">GitHub</a></li>
-    <li class="list-group-item"><a rel="me" href="https://{{ network[1] }}" title="Mastodon">Mastodon</a></li>
+    <li class="list-group-item"><a href="mailto:{{ site.social-network-links.email }}" title="Email me">Email</a></li>
+    <li class="list-group-item"><a href="https://github.com/{{ site.social-network-links.github }}" title="GitHub">GitHub</a></li>
+    <li class="list-group-item"><a rel="me" href="https://{{ site.social-network-links.mastodon }}" title="Mastodon">Mastodon</a></li>
     <li class="list-group-item"><a href="{{ '/aboutme' | relative_url }}" title="Aboutme">About</a></li>
   </ul>
  <div class="card-footer text-body-secondary">
