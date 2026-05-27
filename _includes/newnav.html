@@ -1,70 +1,92 @@
-<header class=" mb-3 border-bottom">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+<header class="mb-3">
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
-      
+      <!-- 品牌区（Logo 或站点标题） -->
+      <a class="navbar-brand" href="{{ '/' | relative_url }}">
         {%- if site.title-img -%}
-            <a class="navbar-brand" href="{{ '' | absolute_url }}"><img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url}}"/></a>
+          <img alt="{{ site.title | default: 'Logo' }}" src="{{ site.title-img | relative_url }}" height="40">
         {%- elsif site.title -%}
-            <a class="navbar-brand" href="{{ '' | absolute_url }}">{{ site.title }}</a>
+          {{ site.title }}
+        {%- else -%}
+          {{ site.name | default: 'Home' }}
         {%- endif -%}
+      </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <!-- 移动端折叠按钮 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+              aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- 导航菜单（可折叠） -->
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {%- for link in site.navbar-links -%}
+            {%- assign link_key = link[0] -%}
+            {%- assign link_val = link[1] -%}
 
-          <ul class="navbar-nav">
-            {%- for link in site.navbar-links -%}
-              {%- if link[1].first %}
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link[0] }}</a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    {%- for childlink in link[1] -%}
-                      {%- for linkparts in childlink %}
-                        <a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
-                      {%- endfor -%}
-                    {%- endfor %}
-                  </div>
-                </li>
-              {% else %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-            
-            {% if site.post_search %}
+            {%- if link_val.first -%}
+              <!-- 下拉菜单 -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown-{{ link_key | slugify }}"
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ link_key }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdown-{{ link_key | slugify }}">
+                  {%- for child in link_val -%}
+                    {%- for child_link in child -%}
+                      <li>
+                        <a class="dropdown-item" href="{{ child_link[1] | relative_url }}">
+                          {{ child_link[0] }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  {%- endfor -%}
+                </ul>
+              </li>
+            {%- else -%}
+              <!-- 普通链接 -->
+              {%- assign page_url = page.url | relative_url -%}
+              {%- assign link_url = link_val | relative_url -%}
               <li class="nav-item">
-                <a class="nav-link" id="nav-search-link" href="#" title="Search">
-                  <span id="nav-search-icon" class="fa fa-search"></span>
-                  <span id="nav-search-text">Search</span>
+                <a class="nav-link{% if page_url == link_url %} active{% endif %}"
+                   href="{{ link_url }}" {% if page_url == link_url %}aria-current="page"{% endif %}>
+                  {{ link_key }}
                 </a>
               </li>
             {%- endif -%}
-        </ul>
-        
-      
-        {% if site.navbar-extra %}
-          {% for file in site.navbar-extra %}
-            {% include {{ file }} %}
-          {% endfor %}
-        {% endif %}
-      
-        {% if site.avatar and page.show-avatar != false %}
-          <div class="avatar-container">
-            <div class="avatar-img-border">
-              <a href="{{ '' | absolute_url }}">
-                <img alt="Navigation bar avatar" class="avatar-img" src="{{ site.avatar | relative_url }}" />
+          {%- endfor -%}
+
+          <!-- 搜索按钮（如果启用） -->
+          {%- if site.post_search -%}
+            <li class="nav-item">
+              <a class="nav-link" id="nav-search-link" href="#" title="Search">
+                <i class="fa fa-search"></i>
+                <span class="d-none d-md-inline ms-1">Search</span>
               </a>
-            </div>
+            </li>
+          {%- endif -%}
+        </ul>
+
+        <!-- 右侧额外内容（如社交链接等） -->
+        {%- if site.navbar-extra -%}
+          <div class="navbar-extra d-flex">
+            {%- for file in site.navbar-extra -%}
+              {% include {{ file }} %}
+            {%- endfor -%}
           </div>
-        {% endif %}
+        {%- endif -%}
 
-        </div>
-     
+        <!-- 头像（若配置） -->
+        {%- if site.avatar and page.show-avatar != false -%}
+          <div class="avatar-container ms-2">
+            <a href="{{ '/' | relative_url }}" class="d-block">
+              <img alt="Avatar" class="avatar-img rounded-circle"
+                   src="{{ site.avatar | relative_url }}" width="36" height="36">
+            </a>
+          </div>
+        {%- endif -%}
       </div>
-    
-    </nav>
-  </header>
-
+    </div>
+  </nav>
+</header>
