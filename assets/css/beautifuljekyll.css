@@ -3,6 +3,7 @@ layout: null
 ---
 
 @import url("pygment_highlights.css");
+@import url("custom.css");
 
 /* --- General --- */
 
@@ -1118,4 +1119,4 @@ pre {
   }
 }
 
-@import url("custom.css")
+
