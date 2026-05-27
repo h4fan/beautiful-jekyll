@@ -21,30 +21,32 @@ common-ext-js:
 
   {% include newnav.html %}
   
-  <!-- 两列布局：中间内容 + 右侧目录 -->
-  <div class="container">
+   <div class="container">
     <div class="row">
-      <!-- 主要内容区：宽度 9/12 -->
-      <div class="col-12 col-md-9">
-        {{ content }}
-      </div>
-
-      <!-- 右侧目录区：宽度 3/12，中等屏幕以上显示 -->
-      <div class="col-md-3 d-none d-md-block">
-        <div class="position-sticky" style="top: 1rem;">
-          <div class="toc-container">
-            <h5>📑 目录</h5>
-            <div id="toc"></div>
+      {% if page.layout == 'post' %}
+        <div class="col-12 col-md-9">
+          {{ content }}
+        </div>
+        <div class="col-md-3 d-none d-md-block">
+          <div class="position-sticky" style="top: 1rem;">
+            <div class="toc-container">
+              <h5>📑 目录</h5>
+              <div id="toc"></div>
+            </div>
           </div>
         </div>
-      </div>
+      {% else %}
+        <div class="col-12">
+          {{ content }}
+        </div>
+      {% endif %}
     </div>
   </div>
 
   {% include footer-scripts.html %}
-
-  <!-- 引入目录生成脚本和样式 -->
-  {% include toc.html %}
+  {% if page.layout == 'post' %}
+    {% include toc.html %}
+  {% endif %}
 
 </body>
 </html>
